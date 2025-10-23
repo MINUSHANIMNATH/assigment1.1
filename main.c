@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void cityMenu();
-void routeMenu();
+//void cityMenu();
+//void routeMenu();
 
 
 
@@ -18,9 +18,9 @@ int main() {
         scanf("%d", &choice);
 
         switch (choice) {
-            case 1: cityMenu();
+            case 1: //cityMenu();
              break;
-            case 2: routeMenu();
+            case 2: //routeMenu();
              break;
             case 3: printf("Exit program.\n");
              break;
