@@ -1,6 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAXI CITY 30
+#define MAXI LEN 40
+
+//GLOBAL VARIABLE ADD
+char cityList[MAXI CITY][MAXI LEN];
+int cityTotal=0;
+
+
+
+
+
+//function declarations--
 void addNewCity();
 void showCities();
 void editCityName();
@@ -10,12 +22,12 @@ void routeMenu();
 
 // --- Add City ---
 void addNewCity() {
-    if (cityTotal >= MAX_CITY) {
+    if (cityTotal >= MAXI_CITY) {
         printf("City limit is over\n");
         return;
     }
 
-    char tempName[MAX_LEN];
+    char tempName[MAXI_LEN];
     printf("Enter new city name: ");
     scanf("%s", tempName);
 
