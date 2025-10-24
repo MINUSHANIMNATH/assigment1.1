@@ -44,6 +44,41 @@ void addNewCity() {
     printf("City '%s' successfully added!\n", tempName);
 }
 
+// Show City List ---
+void showCities() {
+    if (cityTotal == 0) {
+        printf("No cities have been added yet.\n");
+        return;
+    }
+    printf("\n-- City Directory --\n");
+    for (int i = 0; i < cityTotal; i++) {
+        printf("%d. %s\n", i, cityList[i]);
+    }
+}
+
+// --- Edit City Name ---
+void editCityName() {
+    if (cityTotal == 0) {
+        printf("cities are not rename.\n");
+        return;
+    }
+
+    showCities();
+    int id;
+    char newName[MAX_LEN];
+    printf("cities are selected rename: ");
+    scanf("%d", &id);
+
+    if (id < 0 || id >= cityTotal) {
+        printf("wrong index!\n");
+        return;
+    }
+
+    printf("Enter new name: ");
+    scanf("%s", newName);
+    strcpy(cityList[id], newName);
+    printf("City name is successfully.\n");
+}
 
 
 
