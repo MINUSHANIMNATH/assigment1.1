@@ -8,6 +8,36 @@ void deleteCity();
 void cityMenu();
 void routeMenu();
 
+// --- Add City ---
+void addNewCity() {
+    if (cityTotal >= MAX_CITY) {
+        printf("City limit is over\n");
+        return;
+    }
+
+    char tempName[MAX_LEN];
+    printf("Enter new city name: ");
+    scanf("%s", tempName);
+
+    // Check for duplicates
+    for (int i = 0; i < cityTotal; i++) {
+        if (strcmp(tempName, cityList[i]) == 0) {
+            printf("This city already exists!\n");
+            return;
+        }
+    }
+
+    strcpy(cityList[cityTotal], tempName);
+    cityTotal++;
+    printf("City '%s' successfully added!\n", tempName);
+}
+
+
+
+
+
+
+
 // --- City Management Menu ---
 void cityMenu() {
     int option;
