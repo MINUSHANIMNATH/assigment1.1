@@ -3,7 +3,7 @@
 #define MAX_VEHICLES 3
 #define MAX_CITY 30
 #define MAX_LEN 50
-
+#define MAX_DELIVERIES 50
 
 struct Vehicle{
 
@@ -15,6 +15,16 @@ struct Vehicle{
 
 };
 
+struct Delivery {
+    char from[30];
+    char to[30];
+    int weight;
+    int vehicleID;
+    float distance;
+    float cost;
+    float fuelCost;
+    float total;
+};
 
 //GLOBAL VARIABLE ADD
 char cityList[MAX_CITY][MAX_LEN];
@@ -24,28 +34,31 @@ int route[MAX_CITY][MAX_CITY];
 struct Vehicle vehicleList[MAX_VEHICLES];
 int vehicleCount=0;
 
+struct Delivery deliveries[MAX_DELIVERIES];
+int deliveryCount=0;
 
 
 
 
 
 //function declarations--
-void addNewCity();
-void showCities();
-void editCityName();
-void deleteCity();
-void setRouteDistance();
-void printRouteChart();
-void cityMenu();
-void routeMenu();
-void vehicleMenu();
-void initializeVehicles();
-void displayVehicle();
-
-
+   void addNewCity();
+   void showCities();
+   void editCityName();
+   void deleteCity();
+   void setRouteDistance();
+   void printRouteChart();
+   void cityMenu();
+   void routeMenu();
+   void vehicleMenu();
+   void initializeVehicles();
+   void displayVehicle();
+   void deliveryMenu();
+   void registerdelivery();
+   void displaydelivery();
 
 // --- Add City ---
-void addNewCity() {
+    void addNewCity() {
     if (cityTotal >= MAX_CITY) {
         printf("City limit is over\n");
         return;
@@ -69,7 +82,7 @@ void addNewCity() {
 }
 
 // Show City List ---
-void showCities() {
+    void showCities() {
     if (cityTotal == 0) {
         printf("No cities have been added yet.\n");
         return;
@@ -82,7 +95,7 @@ void showCities() {
 }
 
 // --- Edit City Name ---
-void editCityName() {
+    void editCityName() {
     if (cityTotal == 0) {
         printf("cities are not rename.\n");
         return;
@@ -106,8 +119,8 @@ void editCityName() {
 }
 
 //delete city...
-void deleteCity(){
- if (cityTotal==0){
+    void deleteCity(){
+    if (cityTotal==0){
     printf("no cities to delete.");
     return;
  }
@@ -129,7 +142,7 @@ void deleteCity(){
     printf("City removed successfully done.\n");
 }
 //set distance menu...
-void setRouteDistance(){
+  void setRouteDistance(){
   if (cityTotal<2){
   printf("at minimum one cities required.\n");
   return;}
@@ -155,8 +168,8 @@ void setRouteDistance(){
 
 }
 //show distance chart...
-void printRouteChart(){
-if (cityTotal==0){
+   void printRouteChart(){
+    if (cityTotal==0){
     printf("do not cities .\n");
     return;
 
@@ -179,7 +192,7 @@ printf("\n");
 }
 
 // --- City Management Menu ---
-void cityMenu() {
+    void cityMenu() {
     int option;
     do {
         printf("\n--- City Management ---\n");
@@ -207,7 +220,7 @@ void cityMenu() {
 }
 
 //2.route Management ...
-void routeMenu() {
+    void routeMenu() {
     int option;
     do {
         printf("\n** Route Management **\n");
@@ -228,7 +241,7 @@ void routeMenu() {
     } while (option != 3);
 }
 //--function to add default vehicle--
-void initializeVehicles(){
+    void initializeVehicles(){
 // Default vehicle data
     strcpy(vehicleList[0].type, "Van");
     vehicleList[0].capacity = 1000;
@@ -292,20 +305,89 @@ do {
     } while(choice!=3);
 
    }
+//REGISTER DELIVERY---
+   void registerdelivery(){
+    if (vehicleCount == 0) {
+        printf("Please load vehicle data first!\n");
+        return;
+    }
+
+    struct Delivery d;
+    printf("\nEnter source city: ");
+    scanf("%s", d.from);
+    printf("Enter destination city: ");
+    scanf("%s", d.to);
+    printf("Enter distance (km): ");
+    scanf("%f", &d.distance);
+    printf("Enter cargo weight (kg): ");
+    scanf("%d", &d.weight);
+
+    showVehicles();
+    printf("Select vehicle number: ");
+    scanf("%d", &d.vehicleID);
+
+    if (d.vehicleID < 0 || d.vehicleID >= vehicleCount) {
+        printf("Invalid vehicle selection!\n");
+        return;
+    }
+
+    if (d.weight > vehicles[d.vehicleID].capacity) {
+        printf("Error: Weight exceeds capacity!\n");
+        return;
+    }
+
+    d.cost = calcDeliveryCost(vehicles[d.vehicleID], d.distance, d.weight);
+    d.fuelCost = calcFuelCost(vehicles[d.vehicleID], d.distance);
+    d.total = d.cost + d.fuelCost;
+
+    deliveries[deliveryCount++] = d;
+
+    printf("\nDelivery Added Successfully!\n");
+    printf("----------------------------------\n");
+    printf("From: %s\nTo: %s\nDistance: %.2f km\nWeight: %d kg\n", d.from, d.to, d.distance, d.weight);
+    printf("Vehicle: %s\nTotal Cost: Rs. %.2f\n", vehicles[d.vehicleID].type, d.total);
+}
 
 
 
+
+
+   }
+
+//--DELIVERY MANAGEMNT--
+  void deliveryMenu(){
+     int choice;
+     do {
+        printf("\n--delivery Management--\n");
+        printf("1.Register Delivery\n");
+        printf("2.Display Delivery\n");
+        printf("3.Back\n");
+        printf("enter choice:");
+        scanf("%d",&choice);
+
+        switch(choice){
+
+            case 1: registerdelivery();
+            break;
+            case 2: displaydelivery();
+            break;
+            case 3: break;
+            default: printf("wrong choice!\n");
+        }
+     }while(choice!=3);
+  }
 
 
 // *** Main Program ***
-int main() {
+    int main() {
     int choice;
     do {
         printf("\n*** Logistics System ***\n");
         printf("1. City Management\n");
         printf("2. Route Management\n");
         printf("3.vehicle Management\n");
-        printf("4. Exit\n");
+        printf("4.delivery Management\n");
+        printf("5. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -316,12 +398,14 @@ int main() {
              break;
              case 3:vehicleMenu();
              break;
-            case 4: printf("Exit program.\n");
+             case 4:deliveryMenu();
+             break;
+            case 5: printf("Exit program.\n");
              break;
             default: printf("Invalid choice!\n");
         }
-    } while (choice != 4);
+    } while (choice != 5);
 
 
     return 0;
-}
+  }
