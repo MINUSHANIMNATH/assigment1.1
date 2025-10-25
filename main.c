@@ -129,7 +129,29 @@ void setRoutDistance(){
   printf("DISTANCE BETWEEN %s AND %s SET TO %d km.\n",cityList[A],cityList[B],E);
 
 }
+//show distance chart...
+void printRouteChart(){
+if (cityTotal==0){
+    printf("do not cities .\n");
+    return;
 
+}
+printf("\n* Distance Chart(km)*\n");
+for (int i=0;i<cityTotal;i++){
+    printf("%-10s",cityList[i]);
+
+}
+printf("\n");
+
+  for (int i = 0; i < cityTotal; i++) {
+        printf("%-10s", cityList[i]);
+        for (int j = 0; j < cityTotal; j++) {
+            printf("%-10d", route[i][j]);
+        }
+        printf("\n");
+  }
+
+}
 
 // --- City Management Menu ---
 void cityMenu() {
@@ -173,7 +195,7 @@ void routeMenu() {
         switch (option) {
             case 1: setRouteDistance();
              break;
-            case 2: printRoutechart();
+            case 2: printRouteChart();
              break;
             case 3: break;
             default: printf("Invalid option!\n");
