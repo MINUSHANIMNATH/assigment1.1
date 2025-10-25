@@ -134,6 +134,27 @@ void cityMenu() {
     } while (option != 5);
 }
 
+//2.route Management ...
+void routeMenu() {
+    int option;
+    do {
+        printf("\n** Route Management **\n");
+        printf("1. Set Distance\n");
+        printf("2. View Distance chart\n");
+        printf("3. Back\n");
+        printf("Enter option: ");
+        scanf("%d", &option);
+
+        switch (option) {
+            case 1: setRouteDistance();
+             break;
+            case 2: printRoutechart();
+             break;
+            case 3: break;
+            default: printf("Invalid option!\n");
+        }
+    } while (option != 3);
+}
 
 // *** Main Program ***
 int main() {
