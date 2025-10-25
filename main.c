@@ -204,6 +204,34 @@ void routeMenu() {
         }
     } while (option != 3);
 }
+//3.vehicle Menu...
+vehicleMenu(){
+int choice;
+do {
+        printf("\n** Vehicle Management **\n");
+        printf("1. Load Default Vehicles\n");
+        printf("2. View Vehicle List\n");
+        printf("3. Back to Main Menu\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+     switch (option){
+
+       case1:initializeVehicles();
+       break;
+       case2:displayVehicle();
+       break:
+       case3:back;
+       default:printf("wrong choice!\n");
+     }
+
+     while(option!=3);
+     }
+   }
+
+
+
+}
 
 // *** Main Program ***
 int main() {
@@ -212,7 +240,8 @@ int main() {
         printf("\n*** Logistics System ***\n");
         printf("1. City Management\n");
         printf("2. Route Management\n");
-        printf("3. Exit\n");
+        printf("3.vehicle Management\n");
+        printf("4. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -221,11 +250,13 @@ int main() {
              break;
             case 2: routeMenu();
              break;
-            case 3: printf("Exit program.\n");
+             case 3:vehicleMenu();
+             break;
+            case 4: printf("Exit program.\n");
              break;
             default: printf("Invalid choice!\n");
         }
-    } while (choice != 3);
+    } while (choice != 4);
 
 
     return 0;
