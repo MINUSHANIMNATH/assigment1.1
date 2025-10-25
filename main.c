@@ -21,6 +21,9 @@ void setRouteDistance();
 void printRouteChart();
 void cityMenu();
 void routeMenu();
+void initializeVehicles();
+void vehicleMenu();
+
 
 // --- Add City ---
 void addNewCity() {
@@ -204,6 +207,33 @@ void routeMenu() {
         }
     } while (option != 3);
 }
+//--function to add default vehicle--
+void initializeVehicles();{
+// Default vehicle data
+    strcpy(vehicleList[0].type, "Van");
+    vehicleList[0].capacity = 1000;
+    vehicleList[0].ratePerKm = 30.0;
+    vehicleList[0].speed = 60.0;
+    vehicleList[0].fuelEfficiency = 12.0;
+
+    strcpy(vehicleList[1].type, "Truck");
+    vehicleList[1].capacity = 5000;
+    vehicleList[1].ratePerKm = 40.0;
+    vehicleList[1].speed = 50.0;
+    vehicleList[1].fuelEfficiency = 6.0;
+
+    strcpy(vehicleList[2].type, "Lorry");
+    vehicleList[2].capacity = 10000;
+    vehicleList[2].ratePerKm = 80.0;
+    vehicleList[2].speed = 45.0;
+    vehicleList[2].fuelEfficiency = 4.0;
+
+    vehicleCount = 3;
+    printf("Default vehicles initialized successfully!"\n");
+}
+
+
+
 //3.vehicle Menu...
 vehicleMenu(){
 int choice;
