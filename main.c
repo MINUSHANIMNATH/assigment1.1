@@ -103,7 +103,32 @@ void deleteCity(){
     cityTotal--;
     printf("City removed successfully done.\n");
 }
+//set distance menu...
+void setRoutDistance(){
+  if cityTotal<2){
+  printf("at minimum one cities required.\n")
+  return;;}
 
+  showCities();
+  int A,B,E;
+  printf("ENTER FIRST CITY NUMBER ADD:");
+  scanf("%d",&A);
+  printf("ENTER SECOND CITY NUMBER ADD:");
+  scanf("%d",&B);
+
+  if(A<0|| A>=cityTotal ||B<0|| B>=cityTotal||A==B){
+    printf("WRONG SELECTION!\n");
+    return;
+  }
+
+  printf("enter distance (in km):");
+  scanf("%d",&E);
+
+  route[A][B]=E;
+  route[B][A]=E;
+  printf("DISTANCE BETWEEN %s AND %s SET TO %d km.\n",cityList[A],cityList[B],E);
+
+}
 
 
 // --- City Management Menu ---
