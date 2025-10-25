@@ -77,7 +77,7 @@ void editCityName() {
     printf("Enter new name: ");
     scanf("%s", newName);
     strcpy(cityList[id], newName);
-    printf("City name is successfully.\n");
+    printf("City name is successfully done.\n");
 }
 
 //delete city...
@@ -101,7 +101,7 @@ void deleteCity(){
         strcpy(cityList[i], cityList[i + 1]);
     }
     cityTotal--;
-    printf("City removed successfully.\n");
+    printf("City removed successfully done.\n");
 }
 
 
