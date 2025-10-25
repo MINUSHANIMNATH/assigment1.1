@@ -1,13 +1,30 @@
 #include <stdio.h>
 #include <string.h>
-#define MAX VEHICLE 3
+#define MAX_VEHICLES 3
 #define MAX_CITY 30
 #define MAX_LEN 50
+
+
+struct Vehicle{
+
+ char type[20];
+ int capacity;
+ float ratePerKm;
+ float speed;
+ float fuelEfficiency;
+
+};
+
 
 //GLOBAL VARIABLE ADD
 char cityList[MAX_CITY][MAX_LEN];
 int cityTotal=0;
-int route[MAX_CITY][MAX_LEN];
+int route[MAX_CITY][MAX_CITY];
+
+struct Vehicle vehicleList[MAX_VEHICLES];
+int vehicleCount=0;
+
+
 
 
 
@@ -21,9 +38,10 @@ void setRouteDistance();
 void printRouteChart();
 void cityMenu();
 void routeMenu();
-void initializeVehicles();
-void showVehicle();
 void vehicleMenu();
+void initializeVehicles();
+void displayVehicle();
+
 
 
 // --- Add City ---
@@ -210,7 +228,7 @@ void routeMenu() {
     } while (option != 3);
 }
 //--function to add default vehicle--
-void initializeVehicles();{
+void initializeVehicles(){
 // Default vehicle data
     strcpy(vehicleList[0].type, "Van");
     vehicleList[0].capacity = 1000;
@@ -231,26 +249,25 @@ void initializeVehicles();{
     vehicleList[2].fuelEfficiency = 4.0;
 
     vehicleCount = 3;
-    printf("Default vehicles initialized successfully!"\n");
+    printf("Default vehicles initialized successfully!\n");
 }
 // -- Function to display all vehicles --
-void showVehicles() {
+void displayVehicle() {
     if (vehicleCount == 0) {
         printf("No vehicles available!\n");
         return;
     }
  printf("\n--- Vehicle Information ---\n");
-    printf("%-10s %-10s %-10s %-10s %-10s\n", "No.", "Type", "Capacity", "Rate/km", "Efficiency");
-    for (int i = 0; i < vehicleCount; i++) {
-        printf("%-10d %-10s %-10d %-10.2f %-10.2f\n",
-               i, vehicleList[i].type, vehicleList[i].capacity,
-               vehicleList[i].ratePerKm, vehicleList[i].fuelEfficiency);
-    }
+  printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "No.", "Type", "Capacity", "Rate/km", "Speed", "Efficiency");
+for (int i = 0; i < vehicleCount; i++) {
+    printf("%-10d %-10s %-10d %-10.2f %-10.2f %-10.2f\n",
+           i, vehicleList[i].type, vehicleList[i].capacity,
+           vehicleList[i].ratePerKm, vehicleList[i].speed, vehicleList[i].fuelEfficiency);
+}
 }
 
-
 //3.vehicle Menu...
-vehicleMenu(){
+void vehicleMenu(){
 int choice;
 do {
         printf("\n** Vehicle Management **\n");
@@ -260,23 +277,25 @@ do {
         printf("Enter choice: ");
         scanf("%d", &choice);
 
-     switch (option){
+     switch (choice){
 
-       case1:initializeVehicles();
+       case 1: initializeVehicles();
        break;
-       case2:displayVehicle();
-       break:
-       case3:break;
-       default:printf("wrong choice!\n");
+       case 2: displayVehicle();
+       break;
+       case 3:
+           break;
+       default:
+           printf("wrong choice!\n");
      }
 
-     while(option!=3);
-     }
+    } while(choice!=3);
+
    }
 
 
 
-}
+
 
 // *** Main Program ***
 int main() {
