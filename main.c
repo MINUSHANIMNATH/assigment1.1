@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
+#define MAX VEHICLE 3
 #define MAX_CITY 30
 #define MAX_LEN 50
 
@@ -22,6 +22,7 @@ void printRouteChart();
 void cityMenu();
 void routeMenu();
 void initializeVehicles();
+void showVehicle();
 void vehicleMenu();
 
 
@@ -59,6 +60,7 @@ void showCities() {
     for (int i = 0; i < cityTotal; i++) {
         printf("%d. %s\n", i, cityList[i]);
     }
+
 }
 
 // --- Edit City Name ---
@@ -231,7 +233,20 @@ void initializeVehicles();{
     vehicleCount = 3;
     printf("Default vehicles initialized successfully!"\n");
 }
-
+// -- Function to display all vehicles --
+void showVehicles() {
+    if (vehicleCount == 0) {
+        printf("No vehicles available!\n");
+        return;
+    }
+ printf("\n--- Vehicle Information ---\n");
+    printf("%-10s %-10s %-10s %-10s %-10s\n", "No.", "Type", "Capacity", "Rate/km", "Efficiency");
+    for (int i = 0; i < vehicleCount; i++) {
+        printf("%-10d %-10s %-10d %-10.2f %-10.2f\n",
+               i, vehicleList[i].type, vehicleList[i].capacity,
+               vehicleList[i].ratePerKm, vehicleList[i].fuelEfficiency);
+    }
+}
 
 
 //3.vehicle Menu...
@@ -251,7 +266,7 @@ do {
        break;
        case2:displayVehicle();
        break:
-       case3:back;
+       case3:break;
        default:printf("wrong choice!\n");
      }
 
