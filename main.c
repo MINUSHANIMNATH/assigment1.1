@@ -65,7 +65,7 @@ void editCityName() {
 
     showCities();
     int id;
-    char newName[MAX_LEN];
+    char newName[MAXI_LEN];
     printf("cities are selected rename: ");
     scanf("%d", &id);
 
@@ -80,8 +80,29 @@ void editCityName() {
     printf("City name is successfully.\n");
 }
 
+//delete city...
+void deleteCity(){
+ if (cityTotal==0){
+    printf("no cities to delete.");
+    return;
+ }
 
+  showCities();
+    int id;
+    printf("Select delete city number: ");
+    scanf("%d", &id);
 
+    if (id < 0 || id >= cityTotal) {
+        printf("wrong city number!\n");
+        return;
+    }
+
+    for (int i = id; i < cityTotal - 1; i++) {
+        strcpy(cityList[i], cityList[i + 1]);
+    }
+    cityTotal--;
+    printf("City removed successfully.\n");
+}
 
 
 
