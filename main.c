@@ -56,8 +56,11 @@ int deliveryCount=0;
    void deliveryMenu();
    void registerdelivery();
    void displaydelivery();
+   float calcDeliveryCost(struct Vehicle v, float dist, int w);
+   float calcFuelCost(struct Vehicle v, float dist);
 
-// --- Add City ---
+
+ // --- Add City ---
     void addNewCity() {
     if (cityTotal >= MAX_CITY) {
         printf("City limit is over\n");
@@ -306,6 +309,7 @@ do {
 
    }
 //REGISTER DELIVERY---
+
    void registerdelivery(){
     if (vehicleCount == 0) {
         printf("Please load vehicle data first!\n");
@@ -322,7 +326,7 @@ do {
     printf("Enter cargo weight (kg): ");
     scanf("%d", &d.weight);
 
-    showVehicles();
+  displayVehicle();
     printf("Select vehicle number: ");
     scanf("%d", &d.vehicleID);
 
@@ -331,13 +335,13 @@ do {
         return;
     }
 
-    if (d.weight > vehicles[d.vehicleID].capacity) {
+    if (d.weight > vehicleList[d.vehicleID].capacity) {
         printf("Error: Weight exceeds capacity!\n");
         return;
     }
 
-    d.cost = calcDeliveryCost(vehicles[d.vehicleID], d.distance, d.weight);
-    d.fuelCost = calcFuelCost(vehicles[d.vehicleID], d.distance);
+    d.cost = calcDeliveryCost(vehicleList[d.vehicleID], d.distance, d.weight);
+    d.fuelCost = calcFuelCost(vehicleList[d.vehicleID], d.distance);
     d.total = d.cost + d.fuelCost;
 
     deliveries[deliveryCount++] = d;
@@ -345,16 +349,41 @@ do {
     printf("\nDelivery Added Successfully!\n");
     printf("----------------------------------\n");
     printf("From: %s\nTo: %s\nDistance: %.2f km\nWeight: %d kg\n", d.from, d.to, d.distance, d.weight);
-    printf("Vehicle: %s\nTotal Cost: Rs. %.2f\n", vehicles[d.vehicleID].type, d.total);
+    printf("Vehicle: %s\nTotal Cost: Rs. %.2f\n", vehicleList[d.vehicleID].type, d.total);
 }
 
+   void displaydelivery(){
+    if (deliveryCount == 0) {
+        printf("No delivery records.\n");
+        return;
+    }
 
-
-
+    printf("\n--- Delivery Summary ---\n");
+    printf("%-5s %-10s %-10s %-10s %-10s %-10s\n", "No", "From", "To", "Veh", "Dist", "Total");
+    for (int i = 0; i < deliveryCount; i++) {
+        printf("%-5d %-10s %-10s %-10s %-10.1f %-10.2f\n",
+               i, deliveries[i].from, deliveries[i].to,
+               vehicleList[deliveries[i].vehicleID].type,
+               deliveries[i].distance, deliveries[i].total);
+    }
 
    }
 
+
+
+
 //--DELIVERY MANAGEMNT--
+
+ float calcDeliveryCost(struct Vehicle v, float dist, int w) {
+    return dist * v.ratePerKm * (1 + (float)w / 10000.0);
+}
+
+
+ float calcFuelCost(struct Vehicle v, float dist) {
+    float fuelUsed = dist / v.fuelEfficiency;
+    float price = 450.0;
+    return fuelUsed * price;
+}
   void deliveryMenu(){
      int choice;
      do {
