@@ -1,13 +1,13 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 
-#define MAXI CITY 30
-#define MAXI LEN 40
+#define MAX_CITY 30
+#define MAX_LEN 50
 
 //GLOBAL VARIABLE ADD
-char cityList[MAXI CITY][MAXI LEN];
+char cityList[MAX_CITY][MAX_LEN];
 int cityTotal=0;
-
+int route[MAX_CITY][MAX_LEN];
 
 
 
@@ -17,17 +17,19 @@ void addNewCity();
 void showCities();
 void editCityName();
 void deleteCity();
+void setRouteDistance();
+void printRouteChart();
 void cityMenu();
 void routeMenu();
 
 // --- Add City ---
 void addNewCity() {
-    if (cityTotal >= MAXI_CITY) {
+    if (cityTotal >= MAX_CITY) {
         printf("City limit is over\n");
         return;
     }
 
-    char tempName[MAXI_LEN];
+    char tempName[MAX_LEN];
     printf("Enter new city name: ");
     scanf("%s", tempName);
 
@@ -65,7 +67,7 @@ void editCityName() {
 
     showCities();
     int id;
-    char newName[MAXI_LEN];
+    char newName[MAX_LEN];
     printf("cities are selected rename: ");
     scanf("%d", &id);
 
@@ -104,10 +106,10 @@ void deleteCity(){
     printf("City removed successfully done.\n");
 }
 //set distance menu...
-void setRoutDistance(){
-  if cityTotal<2){
-  printf("at minimum one cities required.\n")
-  return;;}
+void setRouteDistance(){
+  if (cityTotal<2){
+  printf("at minimum one cities required.\n");
+  return;}
 
   showCities();
   int A,B,E;
